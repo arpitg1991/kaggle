@@ -14,7 +14,7 @@ for (i in 1:length(testData1) ){
   filename = sprintf('files/test%d.txt',i)
   write(testData1[i],filename)
 }
-#bin/mallet import-dir --input ../kaggle/ephemeral/files --output ../kaggle/ephemeral/files/tutorial.mallet --keep-sequence --remove-stopwords
+#bin/mallet import-dir --input ../kaggle/ephemeral/files --output ../kaggle/ephemeral/files/tutorial.mallet --keep-sequence --remove-stopwords --stoplist-file stoplists/en.txt
 #bin/mallet train-topics --input ../kaggle/ephemeral/files/tutorial.mallet --num-topics 2 --output-state ../kaggle/ephemeral/files/topic-state.gz --output-topic-keys ../kaggle/ephemeral/files/keys.txt --output-doc-topics ../kaggle/ephemeral/files/tutorial_composition.txt
 a <- read.csv('tutorial_composition.csv',sep = "\t",header=FALSE,skip=1)
 a<-a[,c(4,6)]
