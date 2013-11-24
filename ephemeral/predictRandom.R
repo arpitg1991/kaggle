@@ -3,19 +3,22 @@ train <- read.csv('train.tsv',sep ='\t')
 trainData <- train[,c(4:26)]
 testData <-test[,c(4:26)]
 ###############
-trainData1 <- train[,3]
-testData1 <-test[,3]
+train[,3] <- as.character(train[,3])
+trainData1 <- as.character(trainData1)
+test[,3] <- as.character(test[,3])
+testData1 <- as.character(testData1)
+
 for (i in 1:length(trainData1) ){
-  filename = sprintf('files/train%d.txt',i)
-  write(trainData1[i],filename)
+  filename = sprintf('files/train%d.txt',train[i,2])
+  write(train[i,3],filename)
 }
 
 for (i in 1:length(testData1) ){
-  filename = sprintf('files/test%d.txt',i)
-  write(testData1[i],filename)
+  filename = sprintf('files/test%d.txt',test[i,2])
+  write(test[i,3],filename)
 }
-bin/mallet import-dir --input ../kaggle/ephemeral/files --output ../kaggle/ephemeral/files/tutorial.mallet --keep-sequence --remove-stopwords --stoplist-file stoplists/en.txt
-bin/mallet train-topics --input ../kaggle/ephemeral/files/tutorial.mallet --num-topics 2 --output-state ../kaggle/ephemeral/files/topic-state.gz --output-topic-keys ../kaggle/ephemeral/files/keys.txt --output-doc-topics ../kaggle/ephemeral/files/tutorial_composition.txt
+  bin/mallet import-dir --input ../kaggle/ephemeral/files --output ../kaggle/ephemeral/files/tutorial.mallet --keep-sequence --remove-stopwords --stoplist-file stoplists/en.txt
+bin/mallet train-topics --input ../kaggle/ephemeral/files/tutorial.mallet --num-topics 12 --output-state ../kaggle/ephemeral/files/topic-state.gz --output-topic-keys ../kaggle/ephemeral/files/keys.txt --output-doc-topics ../kaggle/ephemeral/files/tutorial_composition.txt
 a <- read.csv('tutorial_composition.csv',sep = "\t",header=FALSE,skip=1)
 a<-a[,c(4,6)]
 b <- a[,3] * a[,4] + a[,5] * a[,6]
