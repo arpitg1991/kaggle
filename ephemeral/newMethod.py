@@ -17,8 +17,7 @@ def main():
   testdata = list(nmpy.array(pnds.read_table('test.tsv'))[:,2])
   y = nmpy.array(pnds.read_table('train.tsv'))[:,-1]
   
-  tfv = TfidfVectorizer(min_df=4,  max_features=None, strip_accents='unicode',  
-        analyzer='word',token_pattern=r'\w{1,}',ngram_range=(1,2), use_idf=True,smooth_idf=1,sublinear_tf=1)
+  tfv = TfidfVectorizer(min_df=2,  max_features=None, strip_accents='unicode', analyzer='word',token_pattern=r'\w{1,}', ngram_range=(1,1), use_idf=True,smooth_idf=1,sublinear_tf=1)
   
   countv = CountVectorizer(min_df=10,  max_features=None, strip_accents='unicode',  
         analyzer='word',token_pattern=r'\w{1,}',ngram_range=(1,1))
