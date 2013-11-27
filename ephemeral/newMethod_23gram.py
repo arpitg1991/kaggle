@@ -17,7 +17,7 @@ def main():
   testdata = list(nmpy.array(pnds.read_table('test.tsv'))[:,2])
   y = nmpy.array(pnds.read_table('train_raw.tsv'))[:,-1]
   
-  tfv_3gram = TfidfVectorizer(min_df=4,  max_features=None, strip_accents='unicode',  
+  tfv_3gram = TfidfVectorizer(min_df=3,  max_features=None, strip_accents='unicode',  
         analyzer='word',token_pattern=r'\w{1,}',ngram_range=(1,3), use_idf=True,smooth_idf=1,sublinear_tf=1)
   
   countv = CountVectorizer(min_df=10,  max_features=None, strip_accents='unicode',  
@@ -26,8 +26,8 @@ def main():
   rd = lm.LogisticRegression(penalty='l1', dual=False, tol=0.001, 
                              C=10, fit_intercept=True, intercept_scaling=1.0, 
                              class_weight=None, random_state=None)
-  rd2 = lm.LogisticRegression(penalty='l2', dual=False, tol=0.001, 
-                             C=10, fit_intercept=True, intercept_scaling=1.0, 
+  rd2 = lm.LogisticRegression(penalty='l2', dual=False, tol=0.0001, 
+                             C=1, fit_intercept=True, intercept_scaling=1.0, 
                              class_weight=None, random_state=None)
 
   X_all = traindata + testdata
@@ -97,7 +97,7 @@ def main():
   testdata = list(nmpy.array(pnds.read_table('test.tsv'))[:,2])
   y = nmpy.array(pnds.read_table('train_raw.tsv'))[:,-1]
   
-  tfv_2gram = TfidfVectorizer(min_df=4,  max_features=None, strip_accents='unicode',  
+  tfv_2gram = TfidfVectorizer(min_df=3,  max_features=None, strip_accents='unicode',  
         analyzer='word',token_pattern=r'\w{1,}',ngram_range=(1,2), use_idf=True,smooth_idf=1,sublinear_tf=1)
   
   X_all = traindata + testdata

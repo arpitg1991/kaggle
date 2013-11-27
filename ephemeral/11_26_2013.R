@@ -18,7 +18,7 @@ write.table(test_merged, "test_merged.tsv", sep="\t", row.names=FALSE, col.names
 gram_2 <- data.frame(read.csv('LR.csv'))
 gram_3 <- data.frame(read.csv('testTfidf3gram.csv'))
 final_urlid <- gram_2$urlid
-final_labels <- transform((gram_2$label + gram_3$label)/2)
+final_labels <- transform((gram_2$label*0.3 + gram_3$label*0.7))
 final_pred <- cbind(final_urlid, final_labels)
-
-write.table(final_pred, "final.csv", sep=",", row.names=FALSE, col.names=TRUE)
+colnames(final_pred) <- c('urlid','label')
+write.table(final_pred, "finalfinal.csv", sep=",", row.names=FALSE, col.names=TRUE)

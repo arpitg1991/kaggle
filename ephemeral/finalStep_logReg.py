@@ -19,13 +19,13 @@ def main():
 
   print traindata
 
-  rd2 = lm.LogisticRegression(penalty='l2', dual=False, tol=0.001, 
-                             C=10, fit_intercept=True, intercept_scaling=1.0, 
+  rd2 = lm.LogisticRegression(penalty='l2', dual=False, tol=0.0001, 
+                             C=1, fit_intercept=True, intercept_scaling=1.0, 
                              class_weight=None, random_state=None)
 
   X_all = traindata + testdata
   lentrain = len(traindata)
-
+  print(lentrain)
 #  print "fitting pipeline"
 #  tfv_3gram.fit(X_all)
   #countv.fit(X_all)
