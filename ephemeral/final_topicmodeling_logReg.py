@@ -13,9 +13,9 @@ loadData = lambda f: nmpy.genfromtxt(open(f,'r'), delimiter=' ')
 def main():
 
   print "loading data.."
-  traindata = list((nmpy.array(pnds.read_table('topicModeling_train_merged.tsv')))[:,1:-1])
-  testdata = list((nmpy.array(pnds.read_table('topicModeling_test_merged.tsv')))[:,1:])
-  y = nmpy.array(pnds.read_table('topicModeling_train_merged.tsv'))[:,-1]
+  traindata = list((nmpy.array(pnds.read_table('topicModel_train.tsv')))[:,1:-1])
+  testdata = list((nmpy.array(pnds.read_table('topicModel_test.tsv')))[:,1:])
+  y = nmpy.array(pnds.read_table('topicModel_train.tsv'))[:,-1]
 
   print traindata
 
@@ -81,8 +81,8 @@ def main():
   #testfile = testfile
   pred_df = pnds.DataFrame(pred2, index=testfile.index, columns=['label'])
   predTrain_df = pnds.DataFrame(predTrain2, index=trainfile.index, columns=['label'])
-  pred_df.to_csv('LR_Merged.csv')
-  predTrain_df.to_csv('TRAINLR_Merged.csv')
+  pred_df.to_csv('LR.csv')
+  predTrain_df.to_csv('TRAINLR.csv')
   print "submission file created.."
 
 if __name__=="__main__":
