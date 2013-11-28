@@ -8,16 +8,16 @@ trainData1 <- as.character(trainData1)
 test[,3] <- as.character(test[,3])
 testData1 <- as.character(testData1)
 
-for (i in 1:length(trainData1) ){
+for (i in 1:nrow(train) ){
   filename = sprintf('files/train%d.txt',train[i,2])
   write(train[i,3],filename)
 }
 
-for (i in 1:length(testData1) ){
+for (i in 1:nrow(test) ){
   filename = sprintf('files/test%d.txt',test[i,2])
   write(test[i,3],filename)
 }
-  bin/mallet import-dir --input ../kaggle/ephemeral/files --output ../kaggle/ephemeral/files/tutorial.mallet --keep-sequence --remove-stopwords --stoplist-file stoplists/en.txt
+bin/mallet import-dir --input ../kaggle/ephemeral/files --output ../kaggle/ephemeral/files/tutorial.mallet --keep-sequence --remove-stopwords --stoplist-file stoplists/en.txt
 bin/mallet train-topics --input ../kaggle/ephemeral/files/tutorial.mallet --num-topics 12 --output-state ../kaggle/ephemeral/files/topic-state.gz --output-topic-keys ../kaggle/ephemeral/files/keys.txt --output-doc-topics ../kaggle/ephemeral/files/tutorial_composition.txt
 a <- read.csv('tutorial_composition.csv',sep = "\t",header=FALSE,skip=1)
 a<-a[,c(4,6)]

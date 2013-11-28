@@ -15,7 +15,7 @@ def main():
   print "loading data.."
   traindata = list((nmpy.array(pnds.read_table('train_merged.tsv')))[:,1:])
   testdata = list((nmpy.array(pnds.read_table('test_merged.tsv')))[:,1:])
-  y = nmpy.array(pnds.read_table('train_raw.tsv'))[:,-1]
+  y = nmpy.array(pnds.read_table('trainWithRealLabel.tsv'))[:,-1]
 
   print traindata
 
@@ -24,7 +24,7 @@ def main():
                              class_weight=None, random_state=None)
 
   X_all = traindata + testdata
-  lentrain = len(traindata)
+  lentrain = len(traindata) 
   print(lentrain)
 #  print "fitting pipeline"
 #  tfv_3gram.fit(X_all)
