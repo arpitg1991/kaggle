@@ -1,6 +1,6 @@
 gram_train_3 <- data.frame(read.csv('trainfilerainTfidf3gram.csv'))
 gram_train_2 <- data.frame(read.csv('trainfilerainTfidf2gram.csv'))
-trainReal <- data.frame(read.csv('train_raw.tsv',sep='\t'))
+trainReal <- data.frame(read.csv('train.tsv',sep='\t'))
 trainReal <- trainReal[,c(2,27)]
 gram_test_3 <- data.frame(read.csv('testTfidf3gram.csv'))
 gram_test_2 <- data.frame(read.csv('testTfidf2gram.csv'))
@@ -21,7 +21,14 @@ write.table(trainWithRealLabel, "trainWithRealLabel.tsv", sep="\t", row.names=FA
 
 gram_2 <- data.frame(read.csv('LR.csv'))
 gram_3 <- data.frame(read.csv('testTfidf3gram.csv'))
+gram_2_train <- data.frame(read.csv('TRAINLR.csv'))
+gram_3_train <- data.frame(read.csv('trainfilerainTfidf3gram.csv'))
+final_model_train <- merge(x=gram_2_train,y=gram_3_train,by="urlid")
+final_model_train_label <- merge(x=final_model_train,y=trainReal,by="urlid")
 final_model <- merge(x=gram_2,y=gram_3,by="urlid")
+write.table(final_model,file='2_12_test.tsv', sep = '\t',row.names=FALSE,col.names=TRUE)
+write.table(final_model_train,file = '2_12_train.tsv',sep = '\t',row.names = FALSE,col.names=TRUE)
+write.table(final_model_train_label,file = '2_12_train_labels.tsv',sep='\t',row.names = FALSE,col.names=TRUE)
 final_urlid <- final_model$urlid
 final_labels <- transform((final_model$label.x*0.3 + final_model$label.y*0.7))
 final_pred <- cbind(final_urlid, final_labels)

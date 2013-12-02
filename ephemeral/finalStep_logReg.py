@@ -13,11 +13,11 @@ loadData = lambda f: nmpy.genfromtxt(open(f,'r'), delimiter=' ')
 def main():
 
   print "loading data.."
-  traindata = list((nmpy.array(pnds.read_table('topicModeling_train_merged.tsv')))[:,1:-1])
-  testdata = list((nmpy.array(pnds.read_table('topicModeling_test_merged.tsv')))[:,1:])
-  y = nmpy.array(pnds.read_table('topicModeling_train_merged.tsv'))[:,-1]
+  traindata = list((nmpy.array(pnds.read_table('2_12_train.tsv')))[:,1:])
+  testdata = list((nmpy.array(pnds.read_table('2_12_test.tsv')))[:,1:])
+  y = nmpy.array(pnds.read_table('2_12_train_labels.tsv'))[:,-1]
 
-  print traindata
+  #print traindata
 
   rd2 = lm.LogisticRegression(penalty='l2', dual=True, tol=0.0001, 
                              C=1, fit_intercept=True, intercept_scaling=1.0, 
@@ -42,7 +42,7 @@ def main():
   #X = X_all
   #X_test = X_all[lentrain:]
   #X_test = X_all
-  #print "10 Fold CV Score rd: ", nmpy.mean(cross_validation.cross_val_score(rd, X, y, cv=10, scoring='roc_auc'))
+  print "10 Fold CV Score rd: ", nmpy.mean(cross_validation.cross_val_score(rd2, X, y, cv=10, scoring='roc_auc'))
 #  print "10 Fold CV Score rd2: ", nmpy.mean(cross_validation.cross_val_score(rd2, X, y, cv=10, scoring='roc_auc'))
 
   print "training on data"
@@ -76,13 +76,13 @@ def main():
 
   print "added"
   #print pred1[1][1] 
-  testfile = pnds.read_csv('test.tsv', sep="\t", na_values=['?'], index_col=1)
-  trainfile = pnds.read_csv('train_raw.tsv', sep="\t", na_values=['?'], index_col=1)
+  testfile = pnds.read_csv('2_12_test.tsv', sep="\t", na_values=['?'], index_col=0)
+  trainfile = pnds.read_csv('train.tsv', sep="\t", na_values=['?'], index_col=1)
   #testfile = testfile
   pred_df = pnds.DataFrame(pred2, index=testfile.index, columns=['label'])
   predTrain_df = pnds.DataFrame(predTrain2, index=trainfile.index, columns=['label'])
-  pred_df.to_csv('LR_Merged.csv')
-  predTrain_df.to_csv('TRAINLR_Merged.csv')
+  pred_df.to_csv('2_12_submit.csv')
+  predTrain_df.to_csv('2_12_submit_train.csv')
   print "submission file created.."
 
 if __name__=="__main__":
